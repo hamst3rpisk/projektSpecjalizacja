@@ -1,0 +1,55 @@
+* {
+    font-family: "Doto", monospace;
+}
+body {
+    background-color: black;
+}
+#title {
+    font-size:6em;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(to right, #34e2eb 20%,  #075C64 40%, #073763 60%,#ffffff 80%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size:500% auto;
+    animation-name: textGradient;
+    animation-duration: 8s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes textGradient {
+    0% {
+        background-position: 0% 50%; /* it's at the very left of the text and in the middle (50% from the top) */
+    }    
+    100% {
+        background-position: 100% 50%; /* obvious */
+    }
+}
+#main {
+    margin:auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width:50vw;
+}
+.mainActionButton {
+    
+    width:100%;
+    margin-top:5vh;
+    border-radius: 10px;
+    padding:8px;
+    background: linear-gradient(to right, #ffffff  20%,  #34e2eb 40%, #075C64 60%,#073763 80%);
+    background-size: 500% auto;
+}
+.mainActionButton:hover {
+    animation-name: textGradient;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    box-shadow: #ffffff 0px 0px 10px;
+}
