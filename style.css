@@ -42,8 +42,9 @@ body {
     margin-top:5vh;
     border-radius: 10px;
     padding:8px;
-    background: linear-gradient(to right, #ffffff  20%,  #34e2eb 40%, #075C64 60%,#073763 80%);
+    background: linear-gradient(to right, #000000  20%,  #34e2eb 40%, #075C64 60%,#073763 80%);
     background-size: 500% auto;
+    color:white;
 }
 .mainActionButton:hover {
     animation-name: textGradient;
@@ -52,4 +53,15 @@ body {
     animation-iteration-count: infinite;
     animation-direction: alternate;
     box-shadow: #ffffff 0px 0px 10px;
+}
+a {
+    color:white;
+}
+#mainCanvas {
+    /* width:70vw;
+    height:70vh; */
+    margin-left:15vw;
+    margin-top:15vh;
+    border-width: 1px;
+    border-color: white;
 }
