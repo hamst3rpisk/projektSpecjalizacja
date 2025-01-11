@@ -60,8 +60,13 @@ a {
 #mainCanvas {
     /* width:70vw;
     height:70vh; */
-    margin-left:15vw;
-    margin-top:15vh;
-    border-width: 1px;
-    border-color: white;
+    display: block;
+    position: absolute;
+    top:0px;
+    bottom: 0px;
+    left:0px;
+    right:0px;
+    margin:auto;
+
+    border:1px solid white;
 }
