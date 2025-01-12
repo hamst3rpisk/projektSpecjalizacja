@@ -39,11 +39,11 @@ function callGrid() {
                 ctx.fillRect(x,y,10,10);
             }
         
-            ctx.fillStyle=color;
+            ctx.fillStyle=colorPicker.value;
             drawn = [];
             everyDrawn.splice(-1);
         }
-        ctx.fillStyle=color;
+        ctx.fillStyle=colorPicker.value;
     }
     
     let drawing = false;
