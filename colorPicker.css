@@ -1,0 +1,11 @@
+input[type="color"]{
+    background-color: transparent;
+    border: none;
+    width: 3em;
+    height: 3em;
+    cursor: pointer;
+    border-color: rgb(56, 56, 56);
+}
+.colorPickerDiv{
+    float: top;
+}
