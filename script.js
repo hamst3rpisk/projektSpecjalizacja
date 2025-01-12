@@ -43,7 +43,7 @@ function callGrid() {
             drawn = [];
             everyDrawn.splice(-1);
         }
-        ctx.fillStyle="red";
+        ctx.fillStyle=color;
     }
     
     let drawing = false;
