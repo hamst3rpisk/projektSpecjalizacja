@@ -1,2 +1,1 @@
-for performance: limit Ctrl + Z usages to e.g. 5
 dynamic scaling (set canvas size and pixel size - make sure that the canvas size dynamically changes so that canvasSize/pixelSize is not a floating-point number)

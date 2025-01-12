@@ -70,3 +70,21 @@ a {
 
     border:1px solid white;
 }
+#colorDiv, #colorInput {
+    width: 100px;
+    height: 25px;
+    background-color: black;
+}
+#colorDiv {
+    display: inline-block;
+    border: 1px solid white;
+    position: absolute;
+    top:0px;
+    bottom: 0px;
+    left:0px;
+    right:0px;
+    margin-left:auto;
+    margin-right: auto;
+    
+
+}

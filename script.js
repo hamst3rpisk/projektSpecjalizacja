@@ -4,6 +4,7 @@ function callIndex() {
 
 
 function callGrid() {
+    let ctrlZMax = 8;
     const canvas = document.querySelector("#mainCanvas");
     const ctx = canvas.getContext("2d");
     canvas.width = 800;
@@ -11,6 +12,8 @@ function callGrid() {
     ctx.imageSmoothingEnabled = false;
     ctx.lineWidth = "1";
     ctx.strokeStyle = "gray";
+    const colorPicker = document.querySelector("#colorInput");
+
     // for (let i=0;i<128;i++) {
     //     for (let j=0;j<128;j++) {
     //         ctx.rect(i*5,j*5,5,5);
@@ -18,7 +21,13 @@ function callGrid() {
     // }
     ctx.fillStyle = "red";
     ctx.fillRect(0,0,10,10); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
-    
+    let color = colorPicker.value;
+    colorPicker.addEventListener("change", (e) => {
+        console.log(colorPicker.value);
+        ctx.fillStyle = colorPicker.value;
+        console.log(ctx.fillStyle);
+    });
+
     ctx.stroke();
     let everyDrawn = [];
     let drawn = [];
@@ -30,7 +39,7 @@ function callGrid() {
                 ctx.fillRect(x,y,10,10);
             }
         
-            ctx.fillStyle="red";
+            ctx.fillStyle=color;
             drawn = [];
             everyDrawn.splice(-1);
         }
@@ -42,6 +51,10 @@ function callGrid() {
         drawing = false;
         everyDrawn.push(drawn);
         drawn = [];
+        if(everyDrawn.length > ctrlZMax) {
+            everyDrawn.shift();
+            console.log(everyDrawn.length);
+        }
 
     });
     canvas.addEventListener("mousedown", (e) => {
@@ -67,6 +80,10 @@ function callGrid() {
         drawing = false;
         everyDrawn.push(drawn);
         drawn = [];
+        if(everyDrawn.length > ctrlZMax) {
+            everyDrawn.shift();
+            console.log(everyDrawn.length);
+        }
     });
 
 
