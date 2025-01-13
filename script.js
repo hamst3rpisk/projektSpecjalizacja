@@ -7,20 +7,29 @@ function callGrid() {
     let ctrlZMax = 8;
     const canvas = document.querySelector("#mainCanvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = 400;
+    canvas.height = 300;
     ctx.imageSmoothingEnabled = false;
     ctx.lineWidth = "1";
     ctx.strokeStyle = "gray";
     const colorPicker = document.querySelector("#colorInput");
+    
 
+    /* For the grid scaling sliders */
+    const widthSlider = document.querySelector("#canvasWidth");
+    const heightSlider = document.querySelector("#canvasHeight");
+    const pixelSlider = document.querySelector("#pixelSize");
+    const pixelText = document.querySelector("#pixelText");
+    const widthText = document.querySelector("#widthText");
+    const heightText = document.querySelector("#heightText");
+    let pixelSize = pixelSlider.value;
     // for (let i=0;i<128;i++) {
     //     for (let j=0;j<128;j++) {
     //         ctx.rect(i*5,j*5,5,5);
     //     }
     // }
     ctx.fillStyle = "red";
-    ctx.fillRect(0,0,10,10); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
+    ctx.fillRect(0,0,pixelSize,pixelSize); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
     let color = colorPicker.value;
     colorPicker.addEventListener("change", (e) => {
         console.log(colorPicker.value);
@@ -36,7 +45,7 @@ function callGrid() {
         ctx.fillStyle="black";
         if (everyDrawn.length != 0) {
             for (let {x,y} of everyDrawn[everyDrawn.length-1]) {
-                ctx.fillRect(x,y,10,10);
+                ctx.fillRect(x,y,pixelSize,pixelSize);
             }
         
             ctx.fillStyle=colorPicker.value;
@@ -67,9 +76,9 @@ function callGrid() {
             const rect = canvas.getBoundingClientRect();
             x = e.clientX - rect.left;
             y = e.clientY - rect.top;
-            x = Math.floor(x/10)*10;
-            y = Math.floor(y/10)*10;
-            ctx.fillRect(x,y,10,10);
+            x = Math.floor(x/pixelSize)*pixelSize;
+            y = Math.floor(y/pixelSize)*pixelSize;
+            ctx.fillRect(x,y,pixelSize,pixelSize);
             ctx.stroke();
             drawn.push({x,y});
             
@@ -94,4 +103,37 @@ function callGrid() {
             console.log("ctrlz");
         }
     });
+    heightSlider.addEventListener("change", (e) => {
+
+        if (heightSlider.value > window.innerWidth*0.9) {
+            heightSlider.value = window.innerWidth*0.9;
+        };
+        heightSlider.step=pixelSize;
+        heightText.textContent = "Canvas Height: " + heightSlider.value;
+        canvas.height = heightSlider.value;
+        ctx.imageSmoothingEnabled = false;
+        ctx.lineWidth = "1";
+        ctx.strokeStyle = "gray";
+        ctx.fillStyle = colorPicker.value;
+        
+    });
+    widthSlider.addEventListener("change", (e) => {
+        if (widthSlider.value > window.innerWidth*0.8) {
+            widthSlider.value = window.innerWidth*0.8;
+        };
+        widthSlider.step=pixelSize;
+        widthText.textContent = "Canvas Width: "+ widthSlider.value;
+        canvas.width = widthSlider.value;
+        ctx.imageSmoothingEnabled = false;
+        ctx.lineWidth = "1";
+        ctx.strokeStyle = "gray";
+        ctx.fillStyle = colorPicker.value;
+        
+    });
+    pixelSlider.addEventListener("change", (e) => {
+        pixelText.textContent = "Pixel Size: " + pixelSlider.value;
+        pixelSize = pixelSlider.value;
+        
+    });
+
 }
