@@ -1,4 +1,7 @@
-input[type="color"]{
+#button1{
+    background: #ff0000;
+}
+input[type="color"], .buttonColor{
     background-color: transparent;
     border: none;
     width: 3em;
@@ -6,6 +9,7 @@ input[type="color"]{
     cursor: pointer;
     border-color: rgb(56, 56, 56);
 }
+
 .colorPickerDiv{
     float: top;
 }

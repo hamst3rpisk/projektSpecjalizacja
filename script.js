@@ -12,7 +12,6 @@ function callGrid() {
     ctx.imageSmoothingEnabled = false;
     ctx.lineWidth = "1";
     ctx.strokeStyle = "gray";
-    const colorPicker = document.querySelector("#colorInput");
 
     // for (let i=0;i<128;i++) {
     //     for (let j=0;j<128;j++) {
@@ -21,13 +20,23 @@ function callGrid() {
     // }
     ctx.fillStyle = "red";
     ctx.fillRect(0,0,10,10); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
-    let color = colorPicker.value;
-    colorPicker.addEventListener("change", (e) => {
-        console.log(colorPicker.value);
-        ctx.fillStyle = colorPicker.value;
-        console.log(ctx.fillStyle);
+
+
+    let color = "red";
+    const colorInputs = document.querySelectorAll('.buttonColor');
+
+    colorInputs.forEach(input => {
+        input.addEventListener(`click`, function(){
+            color = this;
+            document.getElementById("currentColor").value = window.getComputedStyle(this).backgroudColor;
+            ctx.fillStyle = document.getElementById("currentColor").value;
+            
+        })
     });
 
+    document.getElementById("currentColor").addEventListener('change', function(){
+        ctx.fillStyle = document.getElementById("currentColor").value;
+    })
     ctx.stroke();
     let everyDrawn = [];
     let drawn = [];

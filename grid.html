@@ -12,27 +12,31 @@
 
 </head>
 <body onload="callGrid()">
-    <div class="mainDivs">
+    <div>
+        <label for="currentColor" style="color: white;">Current color: </label>
+        <input type="color" id="currentColor" value="#FF0000">
+    </div>
+    <div class="canvasDiv">
         <canvas id="mainCanvas"></canvas>
     </div>
     <div class="colorPickerDiv">
         <div>
-            <input class="colorInput" type="color" value="#FF0000">
+            <input class="buttonColor" type="button" id="button1">
         </div>
         <div>
-            <input class="colorInput" type="color" value="#ff8000">
+            <input class="buttonColor" type="button" id="button2">
         </div>
         <div>
-            <input class="colorInput" type="color" value="#ffff00">
+            <input class="buttonColor" type="button" id="button3">
         </div>
         <div>
-            <input class="colorInput" type="color" value="#80ff00">
+            <input class="buttonColor" type="button" id="button4">
         </div>
         <div>
-            <input class="colorInput" type="color" value="#00ff00">
+            <input class="buttonColor" type="button" id="button5">
         </div>
         <div>
-            <input class="colorInput" type="color" value="#000000">
+            <input class="buttonColor" type="button" id="button6">
         </div>
     </div>
 </body>
