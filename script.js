@@ -4,18 +4,15 @@ function callIndex() {
 
 
 function callGrid() {
+    let gridColor = "white";
     let ctrlZMax = 8;
     const canvas = document.querySelector("#mainCanvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = 400;
-    canvas.height = 300;
+    canvas.width = 600;
+    canvas.height = 600;
     ctx.imageSmoothingEnabled = false;
     ctx.lineWidth = "1";
-    ctx.strokeStyle = "gray";
-    const colorPicker = document.querySelector("#colorInput");
-    
-
-    /* For the grid scaling sliders */
+    ctx.strokeStyle="gray";
     const widthSlider = document.querySelector("#canvasWidth");
     const heightSlider = document.querySelector("#canvasHeight");
     const pixelSlider = document.querySelector("#pixelSize");
@@ -23,6 +20,34 @@ function callGrid() {
     const widthText = document.querySelector("#widthText");
     const heightText = document.querySelector("#heightText");
     let pixelSize = pixelSlider.value;
+    function drawGridLines() {
+        ctx.beginPath();
+        ctx.fillStyle="gray";
+        for (let i=0;i<canvas.width/pixelSize;i++)
+        {
+            for(let j=0;j<canvas.height/pixelSize;j++) {
+                if (!(j%2)) {
+                    ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
+                    console.log("darw");
+                }
+            }
+        }
+        ctx.stroke();
+        ctx.closePath();
+    }
+    drawGridLines();
+    /* fill canvas init */
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+
+    ctx.strokeStyle = "gray";
+    const colorPicker = document.querySelector("#colorInput");
+    
+
+    /* For the grid scaling sliders */
+    
+   
     // for (let i=0;i<128;i++) {
     //     for (let j=0;j<128;j++) {
     //         ctx.rect(i*5,j*5,5,5);
@@ -40,9 +65,8 @@ function callGrid() {
     ctx.stroke();
     let everyDrawn = [];
     let drawn = [];
-
     function ctrlZ() {
-        ctx.fillStyle="black";
+        ctx.fillStyle=gridColor;
         if (everyDrawn.length != 0) {
             for (let {x,y} of everyDrawn[everyDrawn.length-1]) {
                 ctx.fillRect(x,y,pixelSize,pixelSize);
