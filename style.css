@@ -3,6 +3,7 @@
 }
 body {
     background-color: black;
+    
 }
 #title {
     font-size:6em;
@@ -96,4 +97,54 @@ a {
 .scaleText {
     color:white;
     
+}
+
+
+
+#nextPage, #nextPageGrid {
+    position: absolute;
+    top:0px;
+    left:0px;
+    transition: all .4s ease-out;
+    background-color: black;
+    color:white;
+    height:0vh;
+    width:99.8vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 3em;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    visibility: hidden;
+    
+}
+#nextPageGrid {
+    bottom:0px;
+    height:99.99vh;
+}
+.funFact {
+    color:beige;
+    font-size:0.5em;
+}
+@keyframes switchPage {
+    from {
+        height:0vh;
+        visibility: visible;
+    }
+    to {
+        height:99.99vh;
+        visibility: visible;
+    }
+}
+@keyframes switchPageReverse {
+    from {
+        height:99.99vh;
+        visibility: visible;
+    }
+    to {
+        height:0vh;
+        visibility: hidden;
+    }
 }

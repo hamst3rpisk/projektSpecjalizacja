@@ -1,9 +1,23 @@
 function callIndex() {
-
+    const gridButton = document.querySelector("#gridButton");
+    const nextPageTransitionDiv = document.querySelector("#nextPage");
+    gridButton.addEventListener("click", (e) => {
+        setTimeout(() => { 
+        window.location.href = "grid.html";
+        },2000);
+        nextPageTransitionDiv.style="animation: switchPage 0.4s forwards";
+    });
+    
+    
 }
 
 
 function callGrid() {
+    const nextPageTransitionDivReverse = document.querySelector("#nextPageGrid");
+    nextPageTransitionDivReverse.style="animation: switchPageReverse 0.4s forwards";
+
+
+
     let gridColor = "white";
     let ctrlZMax = 8;
     const canvas = document.querySelector("#mainCanvas");
@@ -11,6 +25,9 @@ function callGrid() {
     canvas.width = 600;
     canvas.height = 600;
     ctx.imageSmoothingEnabled = false;
+    canvas.willReadFrequently = true;
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.lineWidth = "1";
     ctx.strokeStyle="gray";
     const widthSlider = document.querySelector("#canvasWidth");
@@ -66,9 +83,10 @@ function callGrid() {
     let everyDrawn = [];
     let drawn = [];
     function ctrlZ() {
-        ctx.fillStyle=gridColor;
         if (everyDrawn.length != 0) {
-            for (let {x,y} of everyDrawn[everyDrawn.length-1]) {
+            for (let {x,y,reverseColor} of everyDrawn[everyDrawn.length-1]) {
+                ctx.fillStyle=reverseColor;
+                console.log(reverseColor);
                 ctx.fillRect(x,y,pixelSize,pixelSize);
             }
         
@@ -92,7 +110,24 @@ function callGrid() {
     });
     canvas.addEventListener("mousedown", (e) => {
         drawing = true;
-        
+        const rect = canvas.getBoundingClientRect();
+            x = e.clientX - rect.left;
+            y = e.clientY - rect.top;
+            x = Math.floor(x/pixelSize)*pixelSize;
+            y = Math.floor(y/pixelSize)*pixelSize;
+
+            setTimeout(() => {
+                let imageData = ctx.getImageData(x,y,pixelSize,pixelSize);
+                let pixelData = imageData.data;
+                let color = `rgba(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
+
+                ctx.fillStyle = colorPicker.value;
+                ctx.fillRect(x,y,pixelSize,pixelSize);
+                ctx.stroke();
+
+                drawn.push({x,y,reverseColor: color});
+                console.log(drawn[drawn.length-1]);
+            },10);
         
     });
     canvas.addEventListener("mousemove", (e) => {
@@ -102,11 +137,21 @@ function callGrid() {
             y = e.clientY - rect.top;
             x = Math.floor(x/pixelSize)*pixelSize;
             y = Math.floor(y/pixelSize)*pixelSize;
-            ctx.fillRect(x,y,pixelSize,pixelSize);
-            ctx.stroke();
-            drawn.push({x,y});
-            
 
+            setTimeout(() => {
+                let imageData = ctx.getImageData(x,y,pixelSize,pixelSize);
+                let pixelData = imageData.data;
+                let color = `rgba(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
+
+                ctx.fillStyle = colorPicker.value;
+                ctx.fillRect(x,y,pixelSize,pixelSize);
+                
+
+                drawn.push({x,y,reverseColor: color});
+                console.log(drawn[drawn.length-1]);
+                
+                ctx.stroke();
+            },10);
         }
     });
     canvas.addEventListener("mouseout", (e) => {
