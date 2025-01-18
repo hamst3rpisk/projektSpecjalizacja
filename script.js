@@ -3,6 +3,7 @@ function callIndex() {
     const nextPageTransitionDiv = document.querySelector("#nextPage");
     gridButton.addEventListener("click", (e) => {
         setTimeout(() => { 
+        nextPageTransitionDiv.style.height = "0vh";
         window.location.href = "grid.html";
         },2000);
         nextPageTransitionDiv.style="animation: switchPage 0.4s forwards";
