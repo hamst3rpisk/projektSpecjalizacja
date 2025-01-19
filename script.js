@@ -19,32 +19,6 @@ function callGrid() {
     //     }
     // }
     ctx.fillStyle = "red";
-
-    let color = "red";
-    const colorInputs = document.querySelectorAll('.buttonColor');
-
-    let defaultColor = {
-        button1: "#ff0000",
-        button2: "#00ff00",
-        button3: "#0000ff",
-        button4: "#ffff00",
-        button5: "#00ffff",
-        button6: "#ff00ff"
-    };
-
-    colorInputs.forEach(input => {
-        input.addEventListener(`click`, function(){
-            color = defaultColor[this.id];
-            document.getElementById("currentColor").value = color;
-            ctx.fillStyle = document.getElementById("currentColor").value;
-
-            
-        })
-    });
-
-    document.getElementById("currentColor").addEventListener('change', function(){
-        ctx.fillStyle = document.getElementById("currentColor").value;
-    })
     ctx.stroke();
     let everyDrawn = [];
     let drawn = [];

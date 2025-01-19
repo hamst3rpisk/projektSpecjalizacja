@@ -1,21 +1,3 @@
-#button1{
-    background: #ff0000;
-}
-#button2{
-    background-color: #00ff00;
-}
-#button3{
-    background: #0000ff;
-}
-#button4{
-    background: #ffff00;
-}
-#button5{
-    background: #00ffff;
-}
-#button6{
-    background: #ff00ff;
-}
 input[type="color"], .buttonColor{
     background-color: transparent;
     border: none;
@@ -26,8 +8,8 @@ input[type="color"], .buttonColor{
 }
 
 .colorPickerDiv{
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    gap: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    border: solid 1px #ffffff;
+    margin: 0.2em;
 }
