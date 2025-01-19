@@ -37,9 +37,42 @@ function callGrid() {
     const heightText = document.querySelector("#heightText");
     let pixelSize = pixelSlider.value;
 
+    /* fill canvas init */
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.stroke();
+
+
+    //Draws the grid lines (doesn't work with Ctrl+Z + doesn't look too good)
+
+    // function drawGridLines(pixelSize) {
+    //     ctx.clearRect(0,0,canvas.width,canvas.height);
+    //     for (let i=0;i<canvas.width/pixelSize;i++)
+    //     {
+    //         for(let j=0;j<canvas.height/pixelSize;j++) {
+    //             if ((i+j)%2==0) {
+    //                 ctx.fillStyle="#9a9da1";
+    //                 ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize); 
+    //             }
+    //             else {
+    //                 ctx.fillStyle="white";
+    //                 ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
+    //             }
+    //         }
+    //     }
+    // }
+    //     ctx.stroke();
+    
+    // drawGridLines(pixelSize);
+
+    
+
+    //Sets used for redundancy and Ctrl+Z
     let drawnPixels = new Set();
     let everyDrawn = [];
     let drawn = [];
+
+    //Draws the pixel and stores the pixel in the drawnPixels set to avoid drawing the same pixel twice
     function drawPixel(x, y) {
         const pixelKey = `${x},${y}`;
         let imageData = ctx.getImageData(x,y,pixelSize,pixelSize);
@@ -48,73 +81,53 @@ function callGrid() {
         if (!drawnPixels.has(pixelKey)) {
             ctx.fillRect(x, y, pixelSize, pixelSize);
             drawnPixels.add(pixelKey);
-            drawn.push({x,y,reverseColor: color});
+            drawn.push({x,y,reverseColor: color, drawnPixelSize: pixelSize});
         }
     }
     
-    function drawGridLines() {
-        ctx.beginPath();
-        ctx.fillStyle="gray";
-        for (let i=0;i<canvas.width/pixelSize;i++)
-        {
-            for(let j=0;j<canvas.height/pixelSize;j++) {
-                if (!(j%2)) {
-                    ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
-                    console.log("darw");
-                }
-            }
-        }
-        ctx.stroke();
-        ctx.closePath();
-    }
-    drawGridLines();
-    /* fill canvas init */
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    
+    
+
 
 
     ctx.strokeStyle = "gray";
     const colorPicker = document.querySelector("#colorInput");
     
 
-    /* For the grid scaling sliders */
-    
-   
-    // for (let i=0;i<128;i++) {
-    //     for (let j=0;j<128;j++) {
-    //         ctx.rect(i*5,j*5,5,5);
-    //     }
-    // }
     ctx.fillStyle = "red";
     ctx.fillRect(0,0,pixelSize,pixelSize); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
     let color = colorPicker.value;
+
+    //Changes color based on the color picker
     colorPicker.addEventListener("change", (e) => {
-        console.log(colorPicker.value);
         ctx.fillStyle = colorPicker.value;
-        console.log(ctx.fillStyle);
     });
 
-    ctx.stroke();
 
+
+    //Reverts last stroke of the mouse up to ctrlZMax times
     function ctrlZ() {
+        console.log(everyDrawn);
         if (everyDrawn.length != 0) {
-            for (let {x,y,reverseColor} of everyDrawn[everyDrawn.length-1]) {
+            for (let {x,y,reverseColor, drawnPixelSize} of everyDrawn[everyDrawn.length-1]) {
                 ctx.fillStyle=reverseColor;
-                console.log(reverseColor);
-                ctx.fillRect(x,y,pixelSize,pixelSize);
+                ctx.fillRect(x,y,drawnPixelSize,drawnPixelSize);
             }
         
             ctx.fillStyle=colorPicker.value;
             drawn = [];
-            everyDrawn.splice(-1);
+            everyDrawn.splice(-1); 
         }
         ctx.fillStyle=colorPicker.value;
     }
     
     let drawing = false;
+
+    //Ends the stroke of the mouse when the mouse is released
     canvas.addEventListener("mouseup", (e) => {
         drawing = false;
-        everyDrawn.push(drawn);
+        if (drawn.length != 0) {
+        everyDrawn.push(drawn); }
         drawn = [];
         if(everyDrawn.length > ctrlZMax) {
             everyDrawn.shift();
@@ -122,11 +135,15 @@ function callGrid() {
         drawnPixels.clear();
 
     });
+
+    //Draws a pixel when the mouse is pressed down to avoid the delay of the mouse move event (trust me it's necessary)
     canvas.addEventListener("mousedown", (e) => {
         drawing = true;
         const rect = canvas.getBoundingClientRect();
             x = e.clientX - rect.left;
             y = e.clientY - rect.top;
+
+            //Grid snaps the pixels to the size to pixelSize 
             x = Math.floor(x/pixelSize)*pixelSize;
             y = Math.floor(y/pixelSize)*pixelSize;
 
@@ -135,31 +152,35 @@ function callGrid() {
                 drawPixel(x,y);
                 ctx.stroke();
                 
-                console.log(drawn[drawn.length-1]);
 
         
     });
+
+    //Keeps drawing pixels when the mouse is pressed down and moving
     canvas.addEventListener("mousemove", (e) => {
         if (drawing) {
             const rect = canvas.getBoundingClientRect();
             x = e.clientX - rect.left;
             y = e.clientY - rect.top;
+
+            //Grid snaps the pixels to the size to pixelSize 
             x = Math.floor(x/pixelSize)*pixelSize;
             y = Math.floor(y/pixelSize)*pixelSize;
 
 
                 ctx.fillStyle = colorPicker.value;
                 drawPixel(x,y);
-
-                console.log(drawn[drawn.length-1]);
                 
                 ctx.stroke();
 
         }
     });
+
+    //Ends the stroke of the mouse when the mouse exits bounds of the canvas
     canvas.addEventListener("mouseout", (e) => {
         drawing = false;
-        everyDrawn.push(drawn);
+        if (drawn.length != 0) {
+        everyDrawn.push(drawn); }
         drawn = [];
         if(everyDrawn.length > ctrlZMax) {
             everyDrawn.shift();
@@ -169,6 +190,8 @@ function callGrid() {
     });
 
 
+
+    //Detects for Ctrl + Z
     document.addEventListener("keydown",(e) => {
         e.preventDefault();
         if (e.code === "KeyZ" && e.ctrlKey === true) {
@@ -176,6 +199,11 @@ function callGrid() {
             console.log("ctrlz");
         }
     });
+
+
+
+
+    //Sliders for canvas width and height/pixel size
     heightSlider.addEventListener("change", (e) => {
 
         if (heightSlider.value > window.innerWidth*0.9) {
