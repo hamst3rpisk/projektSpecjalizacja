@@ -1,0 +1,15 @@
+input[type="color"], .buttonColor{
+    background-color: transparent;
+    border: none;
+    width: 3em;
+    height: 3em;
+    cursor: pointer;
+    border-color: rgb(56, 56, 56);
+}
+
+.colorPickerDiv{
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    border: solid 1px #ffffff;
+    margin: 0.2em;
+}

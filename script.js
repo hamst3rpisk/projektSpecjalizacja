@@ -28,6 +28,7 @@ function callGrid() {
     ctx.fillStyle="white";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.lineWidth = "1";
+    ctx.strokeStyle = "gray";
     ctx.strokeStyle="gray";
     const widthSlider = document.querySelector("#canvasWidth");
     const heightSlider = document.querySelector("#canvasHeight");
@@ -41,7 +42,6 @@ function callGrid() {
     ctx.fillStyle = "white";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.stroke();
-
 
     //Draws the grid lines (doesn't work with Ctrl+Z + doesn't look too good)
 
@@ -95,6 +95,9 @@ function callGrid() {
     
 
     ctx.fillStyle = "red";
+    ctx.stroke();
+    let everyDrawn = [];
+    let drawn = [];
     ctx.fillRect(0,0,pixelSize,pixelSize); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
     let color = colorPicker.value;
 
