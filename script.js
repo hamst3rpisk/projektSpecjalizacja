@@ -91,21 +91,12 @@ function callGrid() {
 
 
     ctx.strokeStyle = "gray";
-    const colorPicker = document.querySelector("#colorInput");
+    const currentColor = document.getElementById('currentColor');
     
 
     ctx.fillStyle = "red";
     ctx.stroke();
-    let everyDrawn = [];
-    let drawn = [];
     ctx.fillRect(0,0,pixelSize,pixelSize); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
-    let color = colorPicker.value;
-
-    //Changes color based on the color picker
-    colorPicker.addEventListener("change", (e) => {
-        ctx.fillStyle = colorPicker.value;
-    });
-
 
 
     //Reverts last stroke of the mouse up to ctrlZMax times
@@ -117,11 +108,11 @@ function callGrid() {
                 ctx.fillRect(x,y,drawnPixelSize,drawnPixelSize);
             }
         
-            ctx.fillStyle=colorPicker.value;
+            ctx.fillStyle=currentColor.value;
             drawn = [];
             everyDrawn.splice(-1); 
         }
-        ctx.fillStyle=colorPicker.value;
+        ctx.fillStyle=currentColor.value;
     }
     
     let drawing = false;
@@ -151,7 +142,7 @@ function callGrid() {
             y = Math.floor(y/pixelSize)*pixelSize;
 
 
-                ctx.fillStyle = colorPicker.value;
+                ctx.fillStyle = currentColor.value;
                 drawPixel(x,y);
                 ctx.stroke();
                 
@@ -171,7 +162,7 @@ function callGrid() {
             y = Math.floor(y/pixelSize)*pixelSize;
 
 
-                ctx.fillStyle = colorPicker.value;
+                ctx.fillStyle = currentColor.value;
                 drawPixel(x,y);
                 
                 ctx.stroke();
@@ -218,7 +209,7 @@ function callGrid() {
         ctx.imageSmoothingEnabled = false;
         ctx.lineWidth = "1";
         ctx.strokeStyle = "gray";
-        ctx.fillStyle = colorPicker.value;
+        ctx.fillStyle = currentColor.value;
         
     });
     widthSlider.addEventListener("change", (e) => {
@@ -231,7 +222,7 @@ function callGrid() {
         ctx.imageSmoothingEnabled = false;
         ctx.lineWidth = "1";
         ctx.strokeStyle = "gray";
-        ctx.fillStyle = colorPicker.value;
+        ctx.fillStyle = currentColor.value;
         
     });
     pixelSlider.addEventListener("change", (e) => {

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.querySelector("#mainCanvas").getContext("2d");
+    const ctx = document.querySelector("#mainCanvas").getContext("2d", {willReadFrequently: true});
     const currentColor = document.getElementById('currentColor');
     const buttonContainer = document.querySelector('.colorPickerDiv');
     
