@@ -1,9 +1,9 @@
 * {
     font-family: "Doto", monospace;
 }
-input[type="range"] {
+/* input[type="range"] {
     
-}
+} */
 body {
     background-color: black;
     display: flex;
