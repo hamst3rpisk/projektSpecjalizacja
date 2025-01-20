@@ -1,6 +1,10 @@
+
+
+
 function callIndex() {
     const gridButton = document.querySelector("#gridButton");
     const nextPageTransitionDiv = document.querySelector("#nextPage");
+    const returnDiv = document.querySelector("#returnDiv");
     gridButton.addEventListener("click", (e) => {
         setTimeout(() => { 
         nextPageTransitionDiv.style.height = "0vh";
@@ -8,15 +12,34 @@ function callIndex() {
         },2000);
         nextPageTransitionDiv.style="animation: switchPage 0.4s forwards";
     });
+    console.log(document.cookie);    
+    if (document.cookie == "returnFlag=true") {
+        returnDiv.style="animation: switchPageReverse 0.4s forwards";
+        document.cookie="returnFlag=false";
+    }
+
+
+    
     
     
 }
 
 function callGrid() {
+    document.cookie="returnFlag=false";
+    const backTransitionDiv = document.querySelector("#lastPageGrid");
     const nextPageTransitionDivReverse = document.querySelector("#nextPageGrid");
     nextPageTransitionDivReverse.style="animation: switchPageReverse 0.4s forwards";
 
-    
+
+    const backButton = document.querySelector("#backActionButton");
+    backButton.addEventListener("click", (e) => {
+        document.cookie="returnFlag=true";
+        setTimeout(() => { 
+            backTransitionDiv.style.height = "0vh";
+            window.location.href = "index.html";
+            },2000);
+            backTransitionDiv.style="animation: switchPage 0.4s forwards";
+    });
 
     let gridColor = "white";
     let ctrlZMax = 8;
@@ -230,5 +253,6 @@ function callGrid() {
         pixelSize = pixelSlider.value;
         
     });
+
 
 }
