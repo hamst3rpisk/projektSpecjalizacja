@@ -1,6 +1,4 @@
 
-
-
 function callIndex() {
     const gridButton = document.querySelector("#gridButton");
     const nextPageTransitionDiv = document.querySelector("#nextPage");
@@ -24,6 +22,8 @@ function callIndex() {
     
 }
 
+
+
 function callGrid() {
     document.cookie="returnFlag=false";
     const backTransitionDiv = document.querySelector("#lastPageGrid");
@@ -40,7 +40,6 @@ function callGrid() {
             },2000);
             backTransitionDiv.style="animation: switchPage 0.4s forwards";
     });
-
     let gridColor = "white";
     let ctrlZMax = 8;
     const canvas = document.querySelector("#mainCanvas");
@@ -110,6 +109,7 @@ function callGrid() {
     
     
     
+    
 
 
 
@@ -140,6 +140,24 @@ function callGrid() {
     
     let drawing = false;
 
+
+
+
+    const exportButton = document.querySelector("#exportButton");
+    //exports canvas to png file
+    function canvasToImg() {
+        let link = document.createElement('a');
+        link.href= canvas.toDataURL("image/png");
+        link.download="canvas.png"
+        link.click();
+    }
+    exportButton.addEventListener("click",(e) => {
+        canvasToImg();
+    });
+
+
+
+
     //Ends the stroke of the mouse when the mouse is released
     canvas.addEventListener("mouseup", (e) => {
         drawing = false;
@@ -155,21 +173,25 @@ function callGrid() {
 
     //Draws a pixel when the mouse is pressed down to avoid the delay of the mouse move event (trust me it's necessary)
     canvas.addEventListener("mousedown", (e) => {
-        drawing = true;
-        const rect = canvas.getBoundingClientRect();
-            x = e.clientX - rect.left;
-            y = e.clientY - rect.top;
+        if (e.button === 2) {
+            
+        }
+        else {
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
 
-            //Grid snaps the pixels to the size to pixelSize 
-            x = Math.floor(x/pixelSize)*pixelSize;
-            y = Math.floor(y/pixelSize)*pixelSize;
+                //Grid snaps the pixels to the size to pixelSize 
+                x = Math.floor(x/pixelSize)*pixelSize;
+                y = Math.floor(y/pixelSize)*pixelSize;
 
 
-                ctx.fillStyle = currentColor.value;
-                drawPixel(x,y);
-                ctx.stroke();
-                
-
+                    ctx.fillStyle = currentColor.value;
+                    drawPixel(x,y);
+                    ctx.stroke();
+                    
+        }
         
     });
 
@@ -255,4 +277,14 @@ function callGrid() {
     });
 
 
+
+
+
+
+
+
+    
+
 }
+
+
