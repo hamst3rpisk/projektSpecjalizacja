@@ -204,6 +204,8 @@ function callGrid() {
             console.log(everyDrawn.length);
         }
         drawnPixels.clear();
+
+        brush.style.display = "none";
     });
 
 
@@ -248,11 +250,26 @@ function callGrid() {
         ctx.fillStyle = currentColor.value;
         
     });
+
+    //Bursh 
+
+    const brush = document.getElementById('brush');
+
     pixelSlider.addEventListener("change", (e) => {
         pixelText.textContent = "Pixel Size: " + pixelSlider.value;
         pixelSize = pixelSlider.value;
         
+        brush.style.width = `${pixelSize}px`;
+        brush.style.height = `${pixelSize}px`;
     });
 
+    canvas.addEventListener('mousemove', (e) =>{
+        brush.style.display = "block";
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
 
+        brush.style.left = `${mouseX}px`;
+        brush.style.top = `${mouseY}px`;
+    });
+    
 }
