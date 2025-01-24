@@ -268,8 +268,12 @@ function callGrid() {
         const mouseX = e.clientX;
         const mouseY = e.clientY;
 
+        //     const rect = canvas.getBoundingClientRect()
+
+        //     const gridX = Math.floor(canvasX / pixelSize) * pixelSize;
+        //     const gridY = Math.floor(canvasY / pixelSize) * pixelSize;
+
         brush.style.left = `${mouseX}px`;
         brush.style.top = `${mouseY}px`;
     });
-    
 }
