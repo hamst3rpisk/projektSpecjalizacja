@@ -84,7 +84,22 @@ a {
     margin:auto;
 
     border:1px solid white;
+
+    cursor: none;
+    position: relative;
 }
+#brush{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    background-color: #818181;
+    width: 8px;
+    height: 8px;
+    opacity: 0.7;
+    /*border-radius: 10px;  DO PRZEMYSLENIA*/
+}
+
+
 #colorDiv, #colorInput {
     width: 100px;
     height: 25px;
@@ -108,6 +123,7 @@ a {
     height: 25px;
     background-color: black;
 }
+
 .scaleText {
     color:white;
     
