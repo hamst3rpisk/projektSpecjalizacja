@@ -158,6 +158,10 @@ a {
     color:beige;
     font-size:0.5em;
 }
+
+
+
+
 @keyframes switchPage {
     from {
         height:0vh;
