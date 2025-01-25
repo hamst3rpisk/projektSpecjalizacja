@@ -1,0 +1,37 @@
+.popUpImport{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    width: auto;
+    height: auto;
+    padding: 1em;
+    color: white;
+    border-radius: 15px;
+    display: none;
+    border: 1px solid ;
+}
+.show{
+    animation-name: fadeIn;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.close{
+    float: right;
+    cursor: pointer;
+}
+.close:hover{
+    color: red;
+}

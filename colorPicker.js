@@ -14,6 +14,13 @@
         ];
 
         let buttonIdNumber = defaultColor.length;
+        /**
+         * Creates a color picker button element with the given id and color,
+         * adds it to the color picker container, and adds an event listener
+         * that changes the current color when the button is clicked.
+         * @param {string} id - The id of the button element to create.
+         * @param {string} color - The background color of the button element to create.
+         */
         function createButton(id, color){
             const button = document.createElement("input");
 
@@ -29,7 +36,7 @@
             });
 
             buttonContainer.appendChild(button);
-            defaultColor.push({ id: button.id, color: currentColor.value});
+            defaultColor.push({ id: button.id, color: color});
         }
 
         defaultColor.forEach(colorObj => {
@@ -42,6 +49,37 @@
                 createButton("button" + buttonIdNumber, currentColor.value);
             }
             ctx.fillStyle = currentColor.value; 
+        });
+        currentColor.addEventListener('click', function() {
+            ctx.fillStyle = currentColor.value;
+        });
+
+        //import pallete popup 
+        const popUp = document.querySelector(".popUpImport");
+        document.getElementById('importPallete').addEventListener('click', function() {
+            popUp.style.display = "block";
+            popUp.classList.add("show");
+        })
+        document.getElementById('importBtn').addEventListener('click', function(){
+            const cssText = document.querySelector("#importLink").value;
+            const colorFromLink = cssText.substr(19).split("-");
+            colorFromLink.forEach((color) => {
+                    buttonIdNumber++;
+                    createButton("button" + buttonIdNumber, "#" + color);
+                });
+                popUp.style.display = "none";
+                popUp.classList.remove("show");
+        })
+        document.getElementById('closePopup').addEventListener('click', function() {
+            popUp.style.display = "none";
+            popUp.classList.remove("show");
+        })
+        //NOT WORKING   
+        window.addEventListener('click', function (event) {
+            if (event.target === popUp) {
+                popUp.style.display = "none";
+                popUp.classList.remove("show");
+            }
         });
     });
 

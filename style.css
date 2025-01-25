@@ -1,9 +1,9 @@
+/*Importent*/
+/*Utility divs and elements are located in seprate file called utilityDivs.css*/
+
 * {
     font-family: "Doto", monospace;
 }
-/* input[type="range"] {
-    
-} */
 body {
     background-color: black;
     display: flex;
@@ -67,6 +67,9 @@ body {
     animation-direction: alternate;
     box-shadow: #ffffff 0px 0px 10px;
 }
+.mainActionButton:active {
+    scale: 0.9;
+}
 #backActionButton {
     width:97%;
 }
@@ -100,34 +103,6 @@ a {
 }
 
 
-#colorDiv, #colorInput {
-    width: 100px;
-    height: 25px;
-    background-color: black;
-}
-#colorDiv {
-    display: inline-block;
-    border: 1px solid white;
-    position: absolute;
-    top:0px;
-    bottom: 0px;
-    left:0px;
-    right:0px;
-    margin-left:auto;
-    margin-right: auto;
-    
-
-}
-#canvasWidth, #canvasHeight {
-    width: 100px;
-    height: 25px;
-    background-color: black;
-}
-
-.scaleText {
-    color:white;
-    
-}
 
 
 
