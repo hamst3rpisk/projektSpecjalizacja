@@ -160,7 +160,7 @@ function callGrid() {
         link.download = canvasName.value + ".png";
         link.click();
     }
-    exportButton.addEventListener("click",(e) => {
+    exportButton.addEventListener("click", () => {
         canvasToImg();
     });
 

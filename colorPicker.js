@@ -65,22 +65,36 @@
             const colorFromLink = cssText.substr(19).split("-");
             colorFromLink.forEach((color) => {
                     buttonIdNumber++;
-                    createButton("button" + buttonIdNumber, "#" + color);
+                    if(!defaultColor.find(colorObj => colorObj.color === "#" + color)){
+                        createButton("button" + buttonIdNumber, "#" + color);
+                    }
                 });
                 popUp.style.display = "none";
                 popUp.classList.remove("show");
-        })
-        document.getElementById('closePopup').addEventListener('click', function() {
-            popUp.style.display = "none";
+        });
+
+        //Closing popup
+        function closePopup() { 
+            popUp.style.display = "none"; 
             popUp.classList.remove("show");
-        })
-        //NOT WORKING   
-        window.addEventListener('click', function (event) {
-            if (event.target === popUp) {
-                popUp.style.display = "none";
-                popUp.classList.remove("show");
+        }
+        document.getElementById('closePopup').addEventListener('click', function() {
+            closePopup();
+        });
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closePopup();
             }
         });
+
+
+        //NOT WORKING   
+        // window.addEventListener('click', function (event) {
+        //     console.log("Clicked element:", event.target);
+        //     if (popUp.style.display === "block" && event.target.closest(".popUpImport") === null && event.target !== document.getElementById('importBtn')) {
+        //         closePopup();
+        //     }
+        // });
     });
 
     

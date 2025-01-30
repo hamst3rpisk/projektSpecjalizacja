@@ -4,7 +4,7 @@
     left: 50%;
     text-align: center;
     transform: translate(-50%, -50%);
-    background-color: black;
+    background-color: #1e1e1e;
     width: auto;
     height: auto;
     padding: 1em;
@@ -12,6 +12,7 @@
     border-radius: 15px;
     display: none;
     border: 1px solid ;
+    gap: 1em;
 }
 .show{
     animation-name: fadeIn;
@@ -31,6 +32,8 @@
 .close{
     float: right;
     cursor: pointer;
+    height: auto;
+    width: auto;
 }
 .close:hover{
     color: red;

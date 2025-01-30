@@ -4,14 +4,21 @@
 * {
     font-family: "Doto", monospace;
 }
-body {
+/*Divs layout*/
+body, .mainDiv {
     background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
+
+    overflow: hidden;
 }
+
+
+
+
 #title {
     font-size:6em;
     font-weight: 700;
