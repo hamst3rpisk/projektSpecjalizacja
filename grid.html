@@ -5,38 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixel Art</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="colorPicker.css">
+    <link rel="stylesheet" href="utilityDivs.css">
+    <link rel="stylesheet" href="popUp.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Funnel+Display:wght@300..800&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
 </head>
 <body onload="callGrid()">
+    <div class="mainDiv">
+        <div class="utilityDivLeft">
+            <input type="text" id="canvasName" placeholder="Project Name">
+            <label for="currentColor" style="color: white;">Current color: </label>
+            <input type="color" id="currentColor" value="#FF0000">
+            <div class="toolDiv">
+                <span class="tool">&#9874;</span>
+                <span class="tool">&#9874;</span>
+                <span class="tool">&#9874;</span>
+                <span class="tool">&#9874;</span>
+            </div>
+        </div>
     
-    <div>
-        <label for="currentColor" style="color: white;">Current color: </label>
-        <input type="color" id="currentColor" value="#FF0000">
-        
-    </div>
-    <div class="canvasDiv">
-        <canvas id="mainCanvas"></canvas>
-        <div id="brush"></div>
-        <div class="mainActionButton" id="exportButton">Export to png</div>
-        <div class="mainActionButton" id="backActionButton">Back</div>   
-    </div>
     
-    <div class="colorPickerDiv">
+        <div class="canvasDiv">
+            <canvas id="mainCanvas"></canvas>
+            <div id="brush"></div>
+            <div class="mainActionButton" id="exportButton">Export to png</div>
+            <div class="mainActionButton" id="backActionButton">Back</div>   
+        </div>
+    
+    
+        <div class="utilityDivRight"> 
+            <div id="clearButton" class="mainActionButton">Clear Canvas</div>
+    
+            <div id="scaleDiv">
+                <input id="canvasWidth" type="range" min="200" max="1000" value="10" step="5">
+                <p id="widthText" class="scaleText">Canvas Width: </p>
+                <input id="canvasHeight" type="range" min="200" max="600" value="10" step="5">
+                <p id="heightText" class="scaleText">Canvas Height: </p>
+                <input id="pixelSize" type="range" min="8" max="50" value="5" step="1">
+                <p id="pixelText" class="scaleText">Brush Size: </p>
+            </div>
+    
+            <div class="colorPickerDiv"></div>
+            <div class="mainActionButton" id="importPallete">Import Pallete</div>
+        </div>
+    
+        <div id="nextPageGrid"></div>
+        <div id="lastPageGrid">Loading...</div>
+        <div id="popUpImport" class="popUpImport">
+            <span id="closePopup" class="close">&times;</span>
+            <h2>Import Color Pallete</h2>
+            <input type="text" placeholder="Color Pallete Link" id="importLink">
+            <input type="button" class="mainActionButton" id="importBtn" value="Import">
+        </div>
     </div>
-    <div id="scaleDiv">
-        <input id="canvasWidth" type="range" min="200" max="1000" value="10" step="5">
-        <p id="widthText" class="scaleText">Canvas Width: </p>
-        <input id="canvasHeight" type="range" min="200" max="600" value="10" step="5">
-        <p id="heightText" class="scaleText">Canvas Height: </p>
-        <input id="pixelSize" type="range" min="8" max="50" value="5" step="1">
-        <p id="pixelText" class="scaleText">Brush Size: </p>
-    </div>
-    <div id="nextPageGrid"></div>
-    <div id="lastPageGrid">Loading...</div>
+
+
+    
 </body>
 
     <script src="script.js"></script>

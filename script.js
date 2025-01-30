@@ -59,12 +59,15 @@ function callGrid() {
     const widthText = document.querySelector("#widthText");
     const heightText = document.querySelector("#heightText");
     let pixelSize = pixelSlider.value;
+    const brush = document.getElementById('brush');
 
     /* fill canvas init */
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.stroke();
-
+    function clearCanvas() {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.stroke();
+    }
+    clearCanvas();
     //Draws the grid lines (doesn't work with Ctrl+Z + doesn't look too good)
 
     // function drawGridLines(pixelSize) {
@@ -142,16 +145,22 @@ function callGrid() {
 
 
 
-
+    //Naming doesnt work beaceause of the crtlZ function(detection of keypresses is causing a bug)
     const exportButton = document.querySelector("#exportButton");
+    let canvasName = document.querySelector("#canvasName");
+
     //exports canvas to png file
     function canvasToImg() {
         let link = document.createElement('a');
         link.href= canvas.toDataURL("image/png");
-        link.download="canvas.png"
+        if (canvasName.value === "") {
+            canvasName.value = "Morelka-Nigg3r";
+        }
+        
+        link.download = canvasName.value + ".png";
         link.click();
     }
-    exportButton.addEventListener("click",(e) => {
+    exportButton.addEventListener("click", () => {
         canvasToImg();
     });
 
@@ -234,6 +243,9 @@ function callGrid() {
 
     //Detects for Ctrl + Z
     document.addEventListener("keydown",(e) => {
+        if (document.activeElement.tagName === "INPUT" && document.activeElement.type === "text") {
+            return;
+        }
         e.preventDefault();
         if (e.code === "KeyZ" && e.ctrlKey === true) {
             ctrlZ();
@@ -244,21 +256,42 @@ function callGrid() {
 
 
 
-    //Sliders for canvas width and height/pixel size
-    heightSlider.addEventListener("change", (e) => {
+    //Sliders for canvas width and height/pixel size\
 
+    //Initializes the slider values
+    heightSlider.value = canvas.height;
+    widthSlider.value = canvas.width;
+    pixelSlider.value = pixelSize;
+    pixelText.textContent = "Brush Size: " + pixelSize;
+    heightText.textContent = "Canvas Height: " + canvas.height;
+    widthText.textContent = "Canvas Width: "+ canvas.width;
+
+    //Updates the slider values live
+    heightSlider.addEventListener("input", (e) => {
+        heightText.textContent = "Canvas Height: " + heightSlider.value;
+    });
+    widthSlider.addEventListener("input", (e) => {
+        widthText.textContent = "Canvas Width: "+ widthSlider.value;
+    });
+    pixelSlider.addEventListener("input", (e) => {
+        pixelText.textContent = "Brush Size: " + pixelSlider.value;
+    })
+
+    //Updates the canvas size
+    heightSlider.addEventListener("change", (e) => {
         if (heightSlider.value > window.innerWidth*0.9) {
             heightSlider.value = window.innerWidth*0.9;
         };
         heightSlider.step=pixelSize;
-        heightText.textContent = "Canvas Height: " + heightSlider.value;
         canvas.height = heightSlider.value;
         ctx.imageSmoothingEnabled = false;
         ctx.lineWidth = "1";
         ctx.strokeStyle = "gray";
         ctx.fillStyle = currentColor.value;
-        
+        clearCanvas();
     });
+
+
     widthSlider.addEventListener("change", (e) => {
         if (widthSlider.value > window.innerWidth*0.8) {
             widthSlider.value = window.innerWidth*0.8;
@@ -270,32 +303,34 @@ function callGrid() {
         ctx.lineWidth = "1";
         ctx.strokeStyle = "gray";
         ctx.fillStyle = currentColor.value;
-        
+        clearCanvas();
     });
 
-    //Bursh 
-
-    const brush = document.getElementById('brush');
-
     pixelSlider.addEventListener("change", (e) => {
-        pixelText.textContent = "Pixel Size: " + pixelSlider.value;
+        pixelText.textContent = "Brush Size: " + pixelSlider.value;
         pixelSize = pixelSlider.value;
         
         brush.style.width = `${pixelSize}px`;
         brush.style.height = `${pixelSize}px`;
     });
 
+
+    //Follow the mouse position on the canvas 
     canvas.addEventListener('mousemove', (e) =>{
         brush.style.display = "block";
         const mouseX = e.clientX;
         const mouseY = e.clientY;
 
-        //     const rect = canvas.getBoundingClientRect()
-
-        //     const gridX = Math.floor(canvasX / pixelSize) * pixelSize;
-        //     const gridY = Math.floor(canvasY / pixelSize) * pixelSize;
+                /* For future impromvents */
+            //     const rect = canvas.getBoundingClientRect()
+            //     const gridX = Math.floor(canvasX / pixelSize) * pixelSize;
+            //     const gridY = Math.floor(canvasY / pixelSize) * pixelSize;
 
         brush.style.left = `${mouseX}px`;
         brush.style.top = `${mouseY}px`;
     });
+
+    document.getElementById("clearButton").addEventListener("click", (e) => {
+        clearCanvas();
+   });
 }
