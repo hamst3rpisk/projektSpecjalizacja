@@ -195,7 +195,6 @@ function callGrid() {
                 x = Math.floor(x/pixelSize)*pixelSize;
                 y = Math.floor(y/pixelSize)*pixelSize;
 
-
                     ctx.fillStyle = currentColor.value;
                     drawPixel(x,y);
                     ctx.stroke();
@@ -214,8 +213,7 @@ function callGrid() {
             //Grid snaps the pixels to the size to pixelSize 
             x = Math.floor(x/pixelSize)*pixelSize;
             y = Math.floor(y/pixelSize)*pixelSize;
-
-
+            
                 ctx.fillStyle = currentColor.value;
                 drawPixel(x,y);
                 
@@ -306,6 +304,7 @@ function callGrid() {
         clearCanvas();
     });
 
+    //Updates the pixel size
     pixelSlider.addEventListener("change", (e) => {
         pixelText.textContent = "Brush Size: " + pixelSlider.value;
         pixelSize = pixelSlider.value;
@@ -315,21 +314,37 @@ function callGrid() {
     });
 
 
-    //Follow the mouse position on the canvas 
-    canvas.addEventListener('mousemove', (e) =>{
-        brush.style.display = "block";
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-
-                /* For future impromvents */
-            //     const rect = canvas.getBoundingClientRect()
-            //     const gridX = Math.floor(canvasX / pixelSize) * pixelSize;
-            //     const gridY = Math.floor(canvasY / pixelSize) * pixelSize;
-
-        brush.style.left = `${mouseX}px`;
-        brush.style.top = `${mouseY}px`;
+    //Toogle snap to grid function
+    var snapToGridToogle = document.querySelector("#snapToGrid");
+    var snapToGrid = snapToGridToogle.checked;
+    snapToGridToogle.addEventListener("change", (e) => {
+        snapToGrid = snapToGridToogle.checked;
     });
 
+    //Grid snaps the pixels to the size to pixelSize and if toogled off it will snap to the mouse
+    canvas.addEventListener('mousemove', (e) => {
+        brush.style.display = "block";
+
+        if (snapToGrid) {
+            brush.style.transform = "";
+
+            const rect = canvas.getBoundingClientRect();
+            const canvasX = e.clientX - rect.left;    
+            const canvasY = e.clientY - rect.top;
+            const gridX = Math.floor(canvasX / pixelSize) * pixelSize;
+            const gridY = Math.floor(canvasY / pixelSize) * pixelSize;
+    
+            brush.style.left = `${gridX + rect.left}px`;
+            brush.style.top = `${gridY + rect.top}px`;
+        } else {
+            brush.style.transform = "translate(-50%, -50%)";
+
+            brush.style.left = `${e.clientX}px`;
+            brush.style.top = `${e.clientY}px`;
+        }
+    });
+
+    //Clears the canvas
     document.getElementById("clearButton").addEventListener("click", (e) => {
         clearCanvas();
    });
