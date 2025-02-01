@@ -1,3 +1,11 @@
+:root{
+    --primaryColor: #00affa;
+    --backgroundColor: #282828;
+    --contraxtColorForBackground: #3f3f3f;
+    --inputElementsColor: #4e4e4e;
+}
+
+
 /*Utility Divs*/
     .utilityDivRight, .utilityDivLeft{
         margin: 3%;
@@ -6,12 +14,14 @@
         flex-direction: column;
         gap: 1em;
 
-        background-color: #1e1e1e;
+        background-color: var(--backgroundColor);
         border-radius: 15px;
         justify-content: center;
         align-items: center;
         width: 15%;
         height: auto;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 
+                    0 6px 6px rgba(0, 0, 0, 0.23);
     }
 
 /*colorPicker*/
@@ -49,7 +59,7 @@
         flex-wrap: wrap;
         justify-content: left;
         align-items: left;
-        border: 1px solid #4e4e4e;
+        border: 1px solid #575757;
         margin: 0.2em;
         
 
@@ -93,7 +103,8 @@
         align-items: center;
         font-size: 2em;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.493);
+        color: rgba(255, 255, 255, 0.5);
+        text-shadow:2px 2px 4px #1e1e1e;
     }
     .tool:hover{
         color: #ffffff;
@@ -101,6 +112,32 @@
     }
     .tool:active{
         scale: 1;
+    }
+    .toolText {
+        position: absolute;
+        bottom: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        background-color: var(--contraxtColorForBackground);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        white-space: nowrap;
+        z-index: 1000;
+        
+        font-size: small;
+        
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    }
+    .tool:hover .toolText {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+        transition-delay: 0.2s;
     }
 
 input[type="text"] {
@@ -122,11 +159,11 @@ input[type="text"]:-webkit-autofill {
 }
 
 /*ButtonsUtility*/
-    #clearButton, #importPallete, #importBtn {
+    #importPallete, #importBtn {
         width: 80%;
         margin-top: 0;
-        border: 1px solid #4e4e4e;
-        background: #1e1e1e;
+        border: 1px solid var(--inputElementsColors);
+        background: var(--backgroundColor);
     }
 
 
@@ -154,7 +191,7 @@ input[type="text"]:-webkit-autofill {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: #7ab4eb;
+        background-color: var(--primaryColor);
         cursor: pointer;
         margin-top: -5px;
     }
@@ -165,4 +202,51 @@ input[type="text"]:-webkit-autofill {
         background-color: #555555;
         border-radius: 10px;
         height: 10px;
+    }
+
+/*Toogle snap to Grid*/
+    .toggle {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 25px;
+    }
+    .toogle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--inputElementsColor);
+        -webkit-transition: .4s;
+        border-radius: 25px;
+        transition: .4s;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        border-radius: 25px;
+
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 3.5px;
+
+        background-color: var(--contraxtColorForBackground);
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+    input:checked + .slider {
+        background-color: var(--primaryColor);
+    }
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);    
     }

@@ -14,42 +14,76 @@
 </head>
 <body onload="callGrid()">
     <div class="mainDiv">
-        <div class="utilityDivLeft">
-            <input type="text" id="canvasName" placeholder="Project Name">
-            <label for="currentColor" style="color: white;">Current color: </label>
-            <input type="color" id="currentColor" value="#FF0000">
-            <div class="toolDiv">
-                <span class="tool">&#9874;</span>
-                <span class="tool">&#9874;</span>
-                <span class="tool">&#9874;</span>
-                <span class="tool">&#9874;</span>
+        <div class="drawingUtilityDiv">
+            <div class="utilityDivLeft">
+                <input type="text" id="canvasName" placeholder="Project Name">
+                <label for="currentColor" style="color: white;">Current color: </label>
+                <input type="color" id="currentColor" value="#FF0000">
+                <div class="toolDiv">
+                    <!-- Tool Icons/Text | To create a tool, follow the same format as the clear button -->
+                    <span class="tool" id="clearButton">
+                        <!-- How to create an icon for tool -->
+                        <!-- Code for icon --> &#128465;
+                        <!-- Code for text popup --> <span class="toolText" id="clearCanvasIcon">Clear Canvas</span>
+                    </span>
+    
+                    <span class="tool">
+                        &#9874;
+                        <span class="toolText">placeholder</span>
+                    </span>
+                    <span class="tool">
+                        &#9874;
+                        <span class="toolText">placeholder</span>
+                    </span>
+                    <span class="tool">
+                        &#9874;
+                        <span class="toolText">placeholder</span>
+                    </span>
+                </div>
+            </div>
+            <!--Canvas Block -->
+            <div class="canvasDiv">
+                <canvas id="mainCanvas"></canvas>
+                <div id="brush"></div>
+            </div>
+
+            <!-- Right Utility Div -->
+            <div class="utilityDivRight">    
+                <!-- Scale Div with all the sliders -->
+                <div id="scaleDiv">
+                    <input id="canvasWidth" type="range" min="200" max="1000" value="10" step="5">
+                    <p id="widthText" class="scaleText">Canvas Width: </p>
+    
+                    <input id="canvasHeight" type="range" min="200" max="600" value="10" step="5">
+                    <p id="heightText" class="scaleText">Canvas Height: </p>
+    
+                    <input id="pixelSize" type="range" min="8" max="50" value="5" step="1">
+                    <p id="pixelText" class="scaleText">Brush Size: </p>
+                </div>
+                <!-- Brush Settings -->
+                <div>
+                    <label for="snapToGrid" style="color: white;">Snap Brush to Grid: </label>
+                    <label class="toggle">
+                        <input type="checkbox" id="snapToGrid">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Color Picker Container and Import Pallete button-->
+                <div class="colorPickerDiv"></div>
+                <div class="mainActionButton" id="importPallete">Import Pallete</div>
             </div>
         </div>
-    
-    
-        <div class="canvasDiv">
-            <canvas id="mainCanvas"></canvas>
-            <div id="brush"></div>
+
+        <div class="mainActionButtonDiv">
             <div class="mainActionButton" id="exportButton">Export to png</div>
-            <div class="mainActionButton" id="backActionButton">Back</div>   
+                <div class="mainActionButton" id="backActionButton">Back</div>  
         </div>
     
+        
     
-        <div class="utilityDivRight"> 
-            <div id="clearButton" class="mainActionButton">Clear Canvas</div>
     
-            <div id="scaleDiv">
-                <input id="canvasWidth" type="range" min="200" max="1000" value="10" step="5">
-                <p id="widthText" class="scaleText">Canvas Width: </p>
-                <input id="canvasHeight" type="range" min="200" max="600" value="10" step="5">
-                <p id="heightText" class="scaleText">Canvas Height: </p>
-                <input id="pixelSize" type="range" min="8" max="50" value="5" step="1">
-                <p id="pixelText" class="scaleText">Brush Size: </p>
-            </div>
-    
-            <div class="colorPickerDiv"></div>
-            <div class="mainActionButton" id="importPallete">Import Pallete</div>
-        </div>
+
     
         <div id="nextPageGrid"></div>
         <div id="lastPageGrid">Loading...</div>

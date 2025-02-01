@@ -6,7 +6,7 @@
 }
 /*Divs layout*/
 body, .mainDiv {
-    background-color: black;
+    background-color: #121212;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,8 +14,22 @@ body, .mainDiv {
     width: 100vw;
 
     overflow: hidden;
+    flex-direction: column;
 }
-
+.drawingUtilityDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.mainActionButtonDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
 
 
 
@@ -60,7 +74,7 @@ body, .mainDiv {
     margin-top:5vh;
     border-radius: 10px;
     padding:8px;
-    background: linear-gradient(to right, #000000  20%,  #34e2eb 40%, #075C64 60%,#073763 80%);
+    background: linear-gradient(to right, #121212  20%,  #34e2eb 40%, #075C64 60%,#073763 80%);
     background-size: 500% auto;
     color:white;
     text-align: center;
@@ -100,7 +114,6 @@ a {
 }
 #brush{
     position: absolute;
-    transform: translate(-50%, -50%);
     pointer-events: none;
     background-color: #818181;
     width: 8px;
@@ -118,7 +131,7 @@ a {
     top:0px;
     left:0px;
     transition: all .4s ease-out;
-    background-color: black;
+    background-color: #121212;
     color:white;
     height:0vh;
     width:99.8vw;
