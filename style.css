@@ -1,21 +1,96 @@
 /*Importent*/
 /*Utility divs and elements are located in seprate file called utilityDivs.css*/
+:root {
+    --arcade-blue: #0074D9;
+    --neon-red: #FF4136;
+    --power-yellow: #FFDC00;
+    --pixel-purple: #B10DC9;
+    --glow-green: #2ECC40;
+    --deep-black: #111111;
+    --retro-orange: #FF851B;
+    --crt-white: #DDDDDD;
+}
+
+@font-face {
+    font-family: PixelifySans;
+    font-weight: 700;
+    src: url('/fonts/PixelifySans-Bold.ttf');
+}
+
+@font-face {
+    font-family: PixelifySans;
+    font-weight: 400;
+    src: url('/fonts/PixelifySans-Regular.ttf');
+}
+
+@font-face {
+    font-family: PixelifySans;
+    font-weight: 600;
+    src: url('/fonts/PixelifySans-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: PixelifySans;
+    font-weight: 500;
+    src: url('/fonts/PixelifySans-Medium.ttf');
+}
+
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
 
 * {
-    font-family: "Doto", monospace;
+    font-family: PixelifySans, sans-serif;
 }
 /*Divs layout*/
 body, .mainDiv {
-    background-color: #121212;
+    background-color: var(--deep-black);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
-
+    margin: 0;
+    padding: 0;
     overflow: hidden;
     flex-direction: column;
+    background-color: 121212;
+    color: var(--glow-green);
+    font-family: 'PixelifySans', sans-serif;
+    text-shadow: 0 0 2px var(--glow-green), 0 0 10px var(--glow-green);
+    filter: contrast(1.2) brightness(1.1);
+    position: relative;
+    overflow: hidden;
+
 }
+
+body::before {
+    box-sizing: border-box;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2) 0px,
+        rgba(0, 0, 0, 0.2) 1px,
+        transparent 8px,
+        transparent 8px
+    );
+    pointer-events: none;
+    z-index: 10;
+
+}
+
+#sierp {
+    width: 50%;
+}
+
 .drawingUtilityDiv{
     display: flex;
     flex-direction: row;
@@ -31,8 +106,6 @@ body, .mainDiv {
     width: 30%;
 }
 
-
-
 #title {
     font-size:6em;
     font-weight: 700;
@@ -42,13 +115,7 @@ body, .mainDiv {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size:500% auto;
-    animation-name: textGradient;
-    animation-duration: 8s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-
-    margin-left:5vw;
+    animation: flicker 0.05s infinite alternate;
 }
 
 @keyframes textGradient {
@@ -70,15 +137,16 @@ body, .mainDiv {
 .mainActionButton {
     cursor: pointer;
     width:100%;
-    
+
     margin-top:5vh;
     border-radius: 10px;
     padding:8px;
     background: linear-gradient(to right, #121212  20%,  #34e2eb 40%, #075C64 60%,#073763 80%);
     background-size: 500% auto;
-    color:white;
+    color: var(--glow-green);
     text-align: center;
     font-size: 1.5em;
+
 }
 .mainActionButton:hover {
     animation-name: textGradient;
@@ -86,7 +154,8 @@ body, .mainDiv {
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    box-shadow: #ffffff 0px 0px 10px;
+    box-shadow: var(--glow-green) 0px 0px 10px;
+    animation: flicker 0.1s infinite alternate;
 }
 .mainActionButton:active {
     scale: 0.9;
@@ -95,7 +164,7 @@ body, .mainDiv {
     width:97%;
 }
 a {
-    color:white;
+    color:var(--crt-white);
 }
 #mainCanvas {
     /* width:70vw;
@@ -107,10 +176,11 @@ a {
     right:0px;
     margin:auto;
 
-    border:1px solid white;
+    border:1px solid var(--crt-white);
 
     cursor: none;
     position: relative;
+    z-index: 20;
 }
 #brush{
     position: absolute;
@@ -119,20 +189,22 @@ a {
     width: 8px;
     height: 8px;
     opacity: 0.7;
-    /*border-radius: 10px;  DO PRZEMYSLENIA*/
+    /* border-radius: 10px; DO PRZEMYSLENIA - brzydkie w chuj i nie skaluje sie z brush sizem - do wyjebania*/
+    z-index: 20;
 }
+#nextPage {
+    transform: translate(-8px, -8px);
+    margin: 0;
 
-
-
-
+}
 
 #nextPage, #nextPageGrid, #lastPageGrid, #returnDiv {
     position: absolute;
     top:0px;
     left:0px;
     transition: all .4s ease-out;
-    background-color: #121212;
-    color:white;
+    background-color: var(--deep-black);
+    color:var(--crt-white);
     height:0vh;
     width:99.8vw;
     display: flex;
@@ -150,11 +222,9 @@ a {
     height:99.99vh;
 }
 .funFact {
-    color:beige;
+    color:var(--crt-white);
     font-size:0.5em;
 }
-
-
 
 
 @keyframes switchPage {
