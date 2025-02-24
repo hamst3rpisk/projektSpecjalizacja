@@ -41,7 +41,6 @@ function callGrid() {
             backTransitionDiv.style="animation: switchPage 0.4s forwards";
     });
     let gridColor = "white";
-    let ctrlZMax = 8;
     const canvas = document.querySelector("#mainCanvas");
     const ctx = canvas.getContext("2d", {willReadFrequently: true});
     canvas.width = 600;
@@ -109,9 +108,9 @@ function callGrid() {
             drawn.push({x,y,reverseColor: color, drawnPixelSize: pixelSize});
         }
     }
-    
-    
-    
+
+
+
     
 
 
@@ -125,27 +124,44 @@ function callGrid() {
     ctx.fillRect(0,0,pixelSize,pixelSize); /* DO NOT DELETE THIS LINE (VERY IMPORTANT) !!!*/
 
 
-    //Reverts last stroke of the mouse up to ctrlZMax times
-    function ctrlZ() {
-        console.log(everyDrawn);
-        if (everyDrawn.length != 0) {
-            for (let {x,y,reverseColor, drawnPixelSize} of everyDrawn[everyDrawn.length-1]) {
-                ctx.fillStyle=reverseColor;
-                ctx.fillRect(x,y,drawnPixelSize,drawnPixelSize);
-            }
-        
-            ctx.fillStyle=currentColor.value;
-            drawn = [];
-            everyDrawn.splice(-1); 
+
+    //CTRL Z FUNCTIONALITY TEST 24-02-2025
+    let strokes = [ctx.getImageData(0,0,canvas.width,canvas.height)];
+    let ctrlZMax = 8;
+
+    function ctrlZsimple() {
+        if (strokes.length != 0) {
+            console.log(strokes);
+            ctx.putImageData(strokes[strokes.length-1],0,0);
+            strokes.splice(-1);
         }
-        ctx.fillStyle=currentColor.value;
+        
     }
+
+
+
+
+    //OLD CTRL Z FUNCTIONALITY
+    //Reverts last stroke of the mouse up to ctrlZMax times
+    // function ctrlZ() {
+    //     console.log(everyDrawn);
+    //     if (everyDrawn.length != 0) {
+    //         for (let {x,y,reverseColor, drawnPixelSize} of everyDrawn[everyDrawn.length-1]) {
+    //             ctx.fillStyle=reverseColor;
+    //             ctx.fillRect(x,y,drawnPixelSize,drawnPixelSize);
+    //         }
+        
+    //         ctx.fillStyle=currentColor.value;
+    //         drawn = [];
+    //         everyDrawn.splice(-1); 
+    //     }
+    //     ctx.fillStyle=currentColor.value;
+    // }
     
     let drawing = false;
 
 
 
-    //Naming doesnt work beaceause of the crtlZ function(detection of keypresses is causing a bug)
     const exportButton = document.querySelector("#exportButton");
     let canvasName = document.querySelector("#canvasName");
 
@@ -170,14 +186,7 @@ function callGrid() {
     //Ends the stroke of the mouse when the mouse is released
     canvas.addEventListener("mouseup", (e) => {
         drawing = false;
-        if (drawn.length != 0) {
-        everyDrawn.push(drawn); }
-        drawn = [];
-        if(everyDrawn.length > ctrlZMax) {
-            everyDrawn.shift();
-        }
-        drawnPixels.clear();
-
+        
     });
 
     //Draws a pixel when the mouse is pressed down to avoid the delay of the mouse move event (trust me it's necessary)
@@ -185,7 +194,11 @@ function callGrid() {
         if (e.button === 2) {
             
         }
-        else {
+        else if (e.button === 0){
+            strokes.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+            if (strokes.length >= ctrlZMax+1) {
+                strokes.shift();
+            }
             drawing = true;
             const rect = canvas.getBoundingClientRect();
                 x = e.clientX - rect.left;
@@ -198,6 +211,7 @@ function callGrid() {
                     ctx.fillStyle = currentColor.value;
                     drawPixel(x,y);
                     ctx.stroke();
+
                     
         }
         
@@ -224,16 +238,13 @@ function callGrid() {
 
     //Ends the stroke of the mouse when the mouse exits bounds of the canvas
     canvas.addEventListener("mouseout", (e) => {
-        drawing = false;
-        if (drawn.length != 0) {
-        everyDrawn.push(drawn); }
-        drawn = [];
-        if(everyDrawn.length > ctrlZMax) {
-            everyDrawn.shift();
-            console.log(everyDrawn.length);
+        if (drawing) {
+            drawing = false;
+            strokes.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+            if (strokes.length >= ctrlZMax+1) {
+                strokes.shift();
+            }
         }
-        drawnPixels.clear();
-
         brush.style.display = "none";
     });
 
@@ -246,8 +257,9 @@ function callGrid() {
         }
         e.preventDefault();
         if (e.code === "KeyZ" && e.ctrlKey === true) {
-            ctrlZ();
+            ctrlZsimple();
             console.log("ctrlz");
+
         }
     });
 
