@@ -6,7 +6,7 @@
     --power-yellow: #FFDC00;
     --pixel-purple: #B10DC9;
     --glow-green: #2ECC40;
-    --deep-black: #2b2b2b;
+    --deep-black: #393939;
     --retro-orange: #FF851B;
     --crt-white: #DDDDDD;
     --animation-opacity: 0.8;
@@ -174,17 +174,18 @@ a {
     left:0px;
     transition: all .4s linear;
     background-color: var(--deep-black);
-    color:var(--crt-white);
     height:0vh;
     width: 99.99vw;
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-size: 3em;
     align-items: center;
     justify-content: center;
     margin:auto;
     visibility: hidden;
+    z-index: 20;
+    font-size: 5em;
+    color: var(--glow-green);
 }
 .nextPage {
     top: 0%;
@@ -229,33 +230,6 @@ a {
 .funFact {
     color:var(--crt-white);
     font-size:0.5em;
-}
-#fallingDiv {
-    position: absolute;
-    top: -100vh; 
-    transform: translateX(-50%);
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--deep-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    visibility: visible;
-    color:var(--crt-white);
-    margin: 0;
-}
-.fall {
-    animation: fallDown 1s linear forwards;
-}
-
-@keyframes fallDown {
-    0% { transform: translateY(0); opacity: 0; }
-    100% { transform: translateY(100vh); opacity: 1; }
-}
-
-@keyframes riseUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100vh); opacity: 0; }
 }
 
 

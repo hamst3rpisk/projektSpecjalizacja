@@ -57,7 +57,7 @@
                     <input id="canvasHeight" type="range" min="200" max="600" value="10" step="5">
                     <p id="heightText" class="scaleText">Canvas Height: </p>
     
-                    <input id="pixelSize" type="range" min="8" max="50" value="5" step="1">
+                    <input id="pixelSize" type="range" min="8" max="80" value="5" step="8">
                     <p id="pixelText" class="scaleText">Brush Size: </p>
                 </div>
                 <!-- Brush Settings -->
@@ -65,6 +65,12 @@
                     <label for="snapToGrid" style="color: white;">Snap Brush to Grid: </label>
                     <label class="toggle">
                         <input type="checkbox" id="snapToGrid">
+                        <span class="slider"></span>
+                    </label>
+                    <br>
+                    <label for="showGrid" style="color: white;">Show Grid: </label>
+                    <label class="toggle">
+                        <input type="checkbox" id="showGrid">
                         <span class="slider"></span>
                     </label>
                 </div>

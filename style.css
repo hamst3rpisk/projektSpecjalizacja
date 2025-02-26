@@ -90,7 +90,9 @@ body::before {
         );
         pointer-events: none;
         z-index: 10;    
+    perspective: 80px;
 }
+
     
 #sierp {
     width: 50%;
@@ -174,7 +176,7 @@ a {
     border:1px solid var(--crt-white);
     cursor: none;
     position: relative;
-    z-index: 20;
+    
 }
 #brush{
     position: absolute;
@@ -183,8 +185,7 @@ a {
     width: 8px;
     height: 8px;
     opacity: 0.7;
-    /* border-radius: 10px; DO PRZEMYSLENIA - brzydkie w chuj i nie skaluje sie z brush sizem - do wyjebania*/
-    z-index: 20;
+   
 }
 
 #nextPageGrid, #lastPageGrid, #returnDiv {
@@ -193,17 +194,17 @@ a {
     left:0px;
     transition: all .4s linear;
     background-color: var(--deep-black);
-    color:var(--crt-white);
     height:0vh;
     width: 99.99vw;
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-size: 3em;
     align-items: center;
     justify-content: center;
     margin:auto;
     visibility: hidden;
+    font-size: 5em;
+    color: var(--glow-green);
 }
 .nextPage {
     top: 0%;
@@ -250,33 +251,31 @@ a {
     font-size:0.5em;
 }
 #fallingDiv {
-    position: absolute;
-    top: -100vh; 
-    transform: translateX(-50%);
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--deep-black);
     display: flex;
-    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 3em;
     justify-content: center;
-    visibility: visible;
-    color:var(--crt-white);
-    margin: 0;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: flicker 0.1s infinite alternate;
+    visibility: hidden;
 }
-.fall {
-    animation: fallDown 1s linear forwards;
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+#fallingDiv p {
+    width: 100%;
+    text-align: center;
 }
-
-@keyframes fallDown {
-    0% { transform: translateY(0); opacity: 0; }
-    100% { transform: translateY(100vh); opacity: 1; }
+#fallingDiv span{
+    font-size: 5em;
+    color: var(--glow-green);
 }
-
-@keyframes riseUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100vh); opacity: 0; }
-}
-
 
 
 @keyframes switchPage {

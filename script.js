@@ -6,7 +6,6 @@ function callIndex() {
         nextPageTransitionDivs.forEach((div, index) => {
             setTimeout(() => {
                 div.style.animation = `switchPage 0.5s linear forwards`;
-                
                 setTimeout(() => { 
                     div.style.height = "0vh";
                     if (index === nextPageTransitionDivs.length - 1) { 
@@ -17,8 +16,10 @@ function callIndex() {
             }, index * 100); 
         });
         setTimeout(() => { 
-            document.getElementById("fallingDiv").classList.add("fall");
-        }, 500);
+            let div = document.getElementById("fallingDiv");
+            div.style.visibility = 'visible';
+            div.style.animation = 'fadeIn 2s';
+        },50);
     });
     
     console.log(document.cookie);    
@@ -40,11 +41,6 @@ function callIndex() {
     },300);
 }
 
-const currentPath = window.location.pathname;
-const fileName = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-if(fileName != 'index.html'){
-    document.body.style.background = "none";
-}
 
 function callGrid() {
     document.cookie="returnFlag=false";
@@ -61,6 +57,8 @@ function callGrid() {
             window.location.href = "index.html";
             },2000);
             backTransitionDiv.style="animation: switchPage 0.4s forwards";
+            backTransitionDiv.style.zIndex = 20;
+            
     });
     let gridColor = "white";
     let ctrlZMax = 8;
@@ -94,8 +92,7 @@ function callGrid() {
 
     function drawGridLines(pixelSize) {
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        for (let i=0;i<canvas.width/pixelSize;i++)
-        {
+        for (let i=0;i<canvas.width/pixelSize;i++){
             for(let j=0;j<canvas.height/pixelSize;j++) {
                 if ((i+j)%2==0) {
                     ctx.fillStyle= "rgba(182, 188, 194,0.7)"
@@ -108,9 +105,16 @@ function callGrid() {
             }
         }
     }
-        ctx.stroke();
+    function hideGridLines(pixelSize){
+        for (let i=0;i<canvas.width/pixelSize;i++){
+            for(let j=0;j<canvas.height/pixelSize;j++) {
+                ctx.fillStyle="white";
+                ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
+            }
+        }
+    }
     
-    drawGridLines(pixelSize);
+    
 
     
 
@@ -335,10 +339,23 @@ function callGrid() {
         brush.style.height = `${pixelSize}px`;
     });
 
+    //Shows the grid
+    let showGridToggle = document.querySelector("#showGrid");
+    let showGrid = showGridToggle.checked;
+    showGridToggle.addEventListener("change", (e) => {
+        showGrid = showGridToggle.checked;
+        if(showGrid){
+            ctx.stroke();
+            drawGridLines(pixelSize);
+        }else{
+            ctx.stroke();
+            hideGridLines(pixelSize);
+        }
+    })
 
     //Toogle snap to grid function
-    var snapToGridToogle = document.querySelector("#snapToGrid");
-    var snapToGrid = snapToGridToogle.checked;
+    let snapToGridToogle = document.querySelector("#snapToGrid");
+    let snapToGrid = snapToGridToogle.checked;
     snapToGridToogle.addEventListener("change", (e) => {
         snapToGrid = snapToGridToogle.checked;
     });
