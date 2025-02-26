@@ -163,8 +163,7 @@ a {
     background-color: #818181;
     width: 8px;
     height: 8px;
-    opacity: 0.7;
-    /* border-radius: 10px; DO PRZEMYSLENIA - brzydkie w chuj i nie skaluje sie z brush sizem - do wyjebania*/
+    opacity: 1;
     z-index: 20;
 }
 
