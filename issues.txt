@@ -1,2 +1,9 @@
 dynamic scaling (set canvas size and pixel size - make sure that the canvas size dynamically changes so that canvasSize/pixelSize is not a floating-point number)
+
+overlapping pixels on different strokes mess up ctrl + Z and create pixels that never existed
+
+
+ten sam kolor ma dwa rozne kolory na dwoch roznych stronach 
+
 reverted pixels cant be drawn over for some reason? (uh oh)
+

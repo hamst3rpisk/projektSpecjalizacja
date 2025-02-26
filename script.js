@@ -1,27 +1,45 @@
-
 function callIndex() {
     const gridButton = document.querySelector("#gridButton");
-    const nextPageTransitionDiv = document.querySelector("#nextPage");
+    const nextPageTransitionDivs = document.querySelectorAll(".nextPage"); 
     const returnDiv = document.querySelector("#returnDiv");
     gridButton.addEventListener("click", (e) => {
+        nextPageTransitionDivs.forEach((div, index) => {
+            setTimeout(() => {
+                div.style.animation = `switchPage 0.5s linear forwards`;
+                setTimeout(() => { 
+                    div.style.height = "0vh";
+                    if (index === nextPageTransitionDivs.length - 1) { 
+                        window.location.href = "grid.html"; 
+                    }
+                }, 2000);
+                
+            }, index * 100); 
+        });
         setTimeout(() => { 
-        nextPageTransitionDiv.style.height = "0vh";
-        window.location.href = "grid.html";
-        },2000);
-        nextPageTransitionDiv.style="animation: switchPage 0.4s forwards";
+            let div = document.getElementById("fallingDiv");
+            div.style.visibility = 'visible';
+            div.style.animation = 'fadeIn 2s';
+        },50);
     });
+    
     console.log(document.cookie);    
     if (document.cookie == "returnFlag=true") {
-        returnDiv.style="animation: switchPageReverse 0.4s forwards";
+        returnDiv.style=`animation: switchPageReverse 0.4s forwards`;
         document.cookie="returnFlag=false";
     }
-
-
-    
-    
-    
+     
+    setInterval(() => {
+        if(Math.floor(Math.random() * 21) === 1){
+            document.documentElement.style.setProperty('--animation-opacity', '0.4');
+        }
+        else if(Math.floor(Math.random() * 21) === 2){
+            document.documentElement.style.setProperty('--animation-opacity', '0.6');
+        }
+        else{
+            document.documentElement.style.setProperty('--animation-opacity', '0.8');
+        }
+    },300);
 }
-
 
 
 function callGrid() {
@@ -39,6 +57,8 @@ function callGrid() {
             window.location.href = "index.html";
             },2000);
             backTransitionDiv.style="animation: switchPage 0.4s forwards";
+            backTransitionDiv.style.zIndex = 20;
+            
     });
     let gridColor = "white";
     const canvas = document.querySelector("#mainCanvas");
@@ -69,25 +89,31 @@ function callGrid() {
     clearCanvas();
     //Draws the grid lines (doesn't work with Ctrl+Z + doesn't look too good)
 
-    // function drawGridLines(pixelSize) {
-    //     ctx.clearRect(0,0,canvas.width,canvas.height);
-    //     for (let i=0;i<canvas.width/pixelSize;i++)
-    //     {
-    //         for(let j=0;j<canvas.height/pixelSize;j++) {
-    //             if ((i+j)%2==0) {
-    //                 ctx.fillStyle="#9a9da1";
-    //                 ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize); 
-    //             }
-    //             else {
-    //                 ctx.fillStyle="white";
-    //                 ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
-    //             }
-    //         }
-    //     }
-    // }
-    //     ctx.stroke();
+    function drawGridLines(pixelSize) {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for (let i=0;i<canvas.width/pixelSize;i++){
+            for(let j=0;j<canvas.height/pixelSize;j++) {
+                if ((i+j)%2==0) {
+                    ctx.fillStyle= "rgba(182, 188, 194,0.7)"
+                    ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize); 
+                }
+                else {
+                    ctx.fillStyle="white";
+                    ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
+                }
+            }
+        }
+    }
+    function hideGridLines(pixelSize){
+        for (let i=0;i<canvas.width/pixelSize;i++){
+            for(let j=0;j<canvas.height/pixelSize;j++) {
+                ctx.fillStyle="white";
+                ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
+            }
+        }
+    }
     
-    // drawGridLines(pixelSize);
+    
 
     
 
@@ -170,7 +196,7 @@ function callGrid() {
         let link = document.createElement('a');
         link.href= canvas.toDataURL("image/png");
         if (canvasName.value === "") {
-            canvasName.value = "Morelka-Nigg3r";
+            canvasName.value = "Maciek-pedal";
         }
         
         link.download = canvasName.value + ".png";
@@ -325,10 +351,23 @@ function callGrid() {
         brush.style.height = `${pixelSize}px`;
     });
 
+    //Shows the grid
+    let showGridToggle = document.querySelector("#showGrid");
+    let showGrid = showGridToggle.checked;
+    showGridToggle.addEventListener("change", (e) => {
+        showGrid = showGridToggle.checked;
+        if(showGrid){
+            ctx.stroke();
+            drawGridLines(pixelSize);
+        }else{
+            ctx.stroke();
+            hideGridLines(pixelSize);
+        }
+    })
 
     //Toogle snap to grid function
-    var snapToGridToogle = document.querySelector("#snapToGrid");
-    var snapToGrid = snapToGridToogle.checked;
+    let snapToGridToogle = document.querySelector("#snapToGrid");
+    let snapToGrid = snapToGridToogle.checked;
     snapToGridToogle.addEventListener("change", (e) => {
         snapToGrid = snapToGridToogle.checked;
     });
