@@ -163,8 +163,8 @@ function callGrid() {
             console.log(strokes);
             ctx.putImageData(strokes[strokes.length-1],0,0);
             strokes.splice(-1);
-            drawn = [];
-            everyDrawn.splice(-1);
+            // drawn = [];
+            // everyDrawn.splice(-1);
         }
         
     }
@@ -271,7 +271,6 @@ function callGrid() {
     canvas.addEventListener("mouseout", (e) => {
         if (drawing) {
             drawing = false;
-            strokes.push(ctx.getImageData(0,0,canvas.width,canvas.height));
             if (strokes.length >= ctrlZMax+1) {
                 strokes.shift();
             }
