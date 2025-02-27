@@ -118,9 +118,9 @@ function callGrid() {
     
 
     //Sets used for redundancy and Ctrl+Z
-    let drawnPixels = new Set();
-    let everyDrawn = [];
-    let drawn = [];
+    // let drawnPixels = new Set();
+    // let everyDrawn = [];
+    // let drawn = [];
 
     //Draws the pixel and stores the pixel in the drawnPixels set to avoid drawing the same pixel twice
     function drawPixel(x, y) {
@@ -128,11 +128,14 @@ function callGrid() {
         let imageData = ctx.getImageData(x,y,pixelSize,pixelSize);
         let pixelData = imageData.data;
         let color = `rgba(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
-        if (!drawnPixels.has(pixelKey)) {
+        // if (!drawnPixels.has(pixelKey)) {
             ctx.fillRect(x, y, pixelSize, pixelSize);
-            drawnPixels.add(pixelKey);
-            drawn.push({x,y,reverseColor: color, drawnPixelSize: pixelSize});
-        }
+            // drawnPixels.add(pixelKey);
+            // drawn.push({x,y,reverseColor: color, drawnPixelSize: pixelSize});
+        // }
+        // else {
+        //     console.log("Pixel drawn here!");
+        // }
     }
 
 
@@ -160,6 +163,8 @@ function callGrid() {
             console.log(strokes);
             ctx.putImageData(strokes[strokes.length-1],0,0);
             strokes.splice(-1);
+            drawn = [];
+            everyDrawn.splice(-1);
         }
         
     }
