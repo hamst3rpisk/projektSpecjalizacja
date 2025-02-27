@@ -5,5 +5,3 @@ overlapping pixels on different strokes mess up ctrl + Z and create pixels that 
 
 ten sam kolor ma dwa rozne kolory na dwoch roznych stronach 
 
-reverted pixels cant be drawn over for some reason? (uh oh)
-
