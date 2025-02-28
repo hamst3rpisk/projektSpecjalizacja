@@ -22,7 +22,7 @@ function callIndex() {
         },50);
     });
     
-    console.log(document.cookie);    
+    console.log(document.cookie);    // cookies for animations
     if (document.cookie == "returnFlag=true") {
         returnDiv.style=`animation: switchPageReverse 0.4s forwards`;
         document.cookie="returnFlag=false";
@@ -87,8 +87,9 @@ function callGrid() {
         ctx.stroke();
     }
     clearCanvas();
-    //Draws the grid lines (doesn't work with Ctrl+Z + doesn't look too good)
 
+
+    //Draws the grid lines (draws over currently drawn pixels - needs an alternative method)
     function drawGridLines(pixelSize) {
         ctx.clearRect(0,0,canvas.width,canvas.height);
         for (let i=0;i<canvas.width/pixelSize;i++){
@@ -113,29 +114,12 @@ function callGrid() {
         }
     }
     
-    
-
-    
-
-    //Sets used for redundancy and Ctrl+Z
-    // let drawnPixels = new Set();
-    // let everyDrawn = [];
-    // let drawn = [];
-
-    //Draws the pixel and stores the pixel in the drawnPixels set to avoid drawing the same pixel twice
     function drawPixel(x, y) {
         const pixelKey = `${x},${y}`;
         let imageData = ctx.getImageData(x,y,pixelSize,pixelSize);
         let pixelData = imageData.data;
         let color = `rgba(${pixelData[0]},${pixelData[1]},${pixelData[2]})`;
-        // if (!drawnPixels.has(pixelKey)) {
-            ctx.fillRect(x, y, pixelSize, pixelSize);
-            // drawnPixels.add(pixelKey);
-            // drawn.push({x,y,reverseColor: color, drawnPixelSize: pixelSize});
-        // }
-        // else {
-        //     console.log("Pixel drawn here!");
-        // }
+        ctx.fillRect(x, y, pixelSize, pixelSize);
     }
 
 
@@ -168,31 +152,8 @@ function callGrid() {
         }
         
     }
-
-
-
-
-    //OLD CTRL Z FUNCTIONALITY
-    //Reverts last stroke of the mouse up to ctrlZMax times
-    // function ctrlZ() {
-    //     console.log(everyDrawn);
-    //     if (everyDrawn.length != 0) {
-    //         for (let {x,y,reverseColor, drawnPixelSize} of everyDrawn[everyDrawn.length-1]) {
-    //             ctx.fillStyle=reverseColor;
-    //             ctx.fillRect(x,y,drawnPixelSize,drawnPixelSize);
-    //         }
-        
-    //         ctx.fillStyle=currentColor.value;
-    //         drawn = [];
-    //         everyDrawn.splice(-1); 
-    //     }
-    //     ctx.fillStyle=currentColor.value;
-    // }
     
     let drawing = false;
-
-
-
     const exportButton = document.querySelector("#exportButton");
     let canvasName = document.querySelector("#canvasName");
 
@@ -288,8 +249,6 @@ function callGrid() {
         e.preventDefault();
         if (e.code === "KeyZ" && e.ctrlKey === true) {
             ctrlZsimple();
-            console.log("ctrlz");
-
         }
     });
 
@@ -314,7 +273,7 @@ function callGrid() {
         widthText.textContent = "Canvas Width: "+ widthSlider.value;
     });
     pixelSlider.addEventListener("input", (e) => {
-        pixelText.textContent = "Brush Size: " + pixelSlider.value;
+        pixelText.textContent = "Brush Size: " + pixelSlider.value;1
     })
 
     //Updates the canvas size
