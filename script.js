@@ -329,6 +329,7 @@ function callGrid() {
         ctx.strokeStyle = "gray";
         ctx.fillStyle = currentColor.value;
         clearCanvas();
+        if (showGridToggle.checked) drawGridLines(pixelSize);
     });
 
 
@@ -344,6 +345,7 @@ function callGrid() {
         ctx.strokeStyle = "gray";
         ctx.fillStyle = currentColor.value;
         clearCanvas();
+        if (showGridToggle.checked) drawGridLines(pixelSize);
     });
 
     //Updates the pixel size
