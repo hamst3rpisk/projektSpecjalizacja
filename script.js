@@ -201,7 +201,7 @@ function callGrid() {
         let link = document.createElement('a');
         link.href= canvas.toDataURL("image/png");
         if (canvasName.value === "") {
-            canvasName.value = "Maciek-pedal";
+            canvasName.value = "Canvas";
         }
         
         link.download = canvasName.value + ".png";
