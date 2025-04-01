@@ -1,7 +1,7 @@
+const nextPageTransitionDivs = document.querySelectorAll(".nextPage"); 
+const returnDiv = document.querySelector("#returnDiv");
 function callIndex() {
     const gridButton = document.querySelector("#gridButton");
-    const nextPageTransitionDivs = document.querySelectorAll(".nextPage"); 
-    const returnDiv = document.querySelector("#returnDiv");
     gridButton.addEventListener("click", (e) => {
         nextPageTransitionDivs.forEach((div, index) => {
             setTimeout(() => {
@@ -10,6 +10,26 @@ function callIndex() {
                     div.style.height = "0vh";
                     if (index === nextPageTransitionDivs.length - 1) { 
                         window.location.href = "grid.html"; 
+                    }
+                }, 2000);
+                
+            }, index * 100); 
+        });
+        setTimeout(() => { 
+            let div = document.getElementById("fallingDiv");
+            div.style.visibility = 'visible';
+            div.style.animation = 'fadeIn 2s';
+        },50);
+    });
+    const creditsButton = document.querySelector("#creditsButton");
+    creditsButton.addEventListener("click", (e) => {
+        nextPageTransitionDivs.forEach((div, index) => {
+            setTimeout(() => {
+                div.style.animation = `switchPage 0.5s linear forwards`;
+                setTimeout(() => { 
+                    div.style.height = "0vh";
+                    if (index === nextPageTransitionDivs.length - 1) { 
+                        window.location.href = "credits.html"; 
                     }
                 }, 2000);
                 
@@ -286,14 +306,15 @@ function callGrid() {
             return;
         }
         e.preventDefault();
-        if (e.code === "KeyZ" && e.ctrlKey === true) {
+        if (e.code === "KeyZ" && (e.ctrlKey === true || e.metaKey === true)) {
             ctrlZsimple();
             console.log("ctrlz");
 
         }
     });
 
-
+    //Flag to save canvas state when changing its' size
+    let changeSizeFlag = false;
 
 
     //Sliders for canvas width and height/pixel size\
@@ -332,7 +353,7 @@ function callGrid() {
         if (showGridToggle.checked) drawGridLines(pixelSize);
     });
 
-
+    
     widthSlider.addEventListener("change", (e) => {
         if (widthSlider.value > window.innerWidth*0.8) {
             widthSlider.value = window.innerWidth*0.8;
@@ -405,4 +426,23 @@ function callGrid() {
     document.getElementById("clearButton").addEventListener("click", (e) => {
         clearCanvas();
    });
+}
+function callCredits() {
+    document.cookie="returnFlag=false";
+    const backTransitionDiv = document.querySelector("#lastPageCredits");
+    const nextPageTransitionDivReverse = document.querySelector("#nextPageCredits");
+    nextPageTransitionDivReverse.style="animation: switchPageReverse 0.4s forwards";
+
+
+    const backButton = document.querySelector("#backActionButtonCredits");
+    backButton.addEventListener("click", (e) => {
+        document.cookie="returnFlag=true";
+        setTimeout(() => { 
+            backTransitionDiv.style.height = "0vh";
+            window.location.href = "index.html";
+            },2000);
+            backTransitionDiv.style="animation: switchPage 0.4s forwards";
+            backTransitionDiv.style.zIndex = 20;
+            
+    });
 }
