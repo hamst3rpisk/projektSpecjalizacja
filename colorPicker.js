@@ -71,12 +71,14 @@
                 });
                 popUp.style.display = "none";
                 popUp.classList.remove("show");
+                document.querySelector("#importLink").value="";
         });
 
         //Closing popup
         function closePopup() { 
             popUp.style.display = "none"; 
             popUp.classList.remove("show");
+            document.querySelector("#importLink").value="";
         }
         document.getElementById('closePopup').addEventListener('click', function() {
             closePopup();

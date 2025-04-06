@@ -175,20 +175,29 @@ function callGrid() {
 
 
     //CTRL Z FUNCTIONALITY TEST 24-02-2025
-    let strokes = [ctx.getImageData(0,0,canvas.width,canvas.height)];
+    let redoStrokes = [];
+    let strokes = [];
     let ctrlZMax = 8;
 
     function ctrlZsimple() {
         if (strokes.length != 0) {
-            console.log(strokes);
-            ctx.putImageData(strokes[strokes.length-1],0,0);
-            strokes.splice(-1);
+            redoFlag = true;
+            redoStrokes.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+            ctx.putImageData(strokes.pop(),0,0);
             // drawn = [];
             // everyDrawn.splice(-1);
         }
         
     }
-
+    //CTRL SHIFT Z (REDO) FUNCTIONALITY
+    function ctrlShiftZsimple() {
+        if (redoStrokes.length != 0 && redoFlag) {
+            strokes.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+            ctx.putImageData(redoStrokes.pop(),0,0);
+            console.log(redoStrokes,strokes);
+            if (redoStrokes.length === 0) redoFlag = false;
+        }
+    }
 
 
 
@@ -250,6 +259,12 @@ function callGrid() {
             if (strokes.length >= ctrlZMax+1) {
                 strokes.shift();
             }
+            if (redoStrokes.length >= ctrlZMax+1) {
+                redoStrokes.shift();
+            }
+            console.log(strokes.length);
+            redoFlag = false;
+            redoStrokes = [];
             drawing = true;
             const rect = canvas.getBoundingClientRect();
                 x = e.clientX - rect.left;
@@ -307,9 +322,11 @@ function callGrid() {
         }
         e.preventDefault();
         if (e.code === "KeyZ" && (e.ctrlKey === true || e.metaKey === true)) {
-            ctrlZsimple();
-            console.log("ctrlz");
-
+            if (e.shiftKey) ctrlShiftZsimple();
+            else {
+                ctrlZsimple();
+                console.log("ctrlz");
+            }
         }
     });
 
